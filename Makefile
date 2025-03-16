@@ -3,15 +3,16 @@ CFLAGS = -Wall -g
 
 SRC_DIR = src
 OBJ_DIR = obj
+BIN_DIR = bin
 
 SRC = $(wildcard $(SRC_DIR)/*.c)
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
-EXEC = vpn_tun
+EXEC = $(BIN_DIR)/vpn
 
 all: $(EXEC)
 
-$(EXEC): $(OBJ)
+$(EXEC): $(OBJ) | $(BIN_DIR)
 	$(CC) $(CFLAGS) -o $@ $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
@@ -20,5 +21,8 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
+
 clean:
-	rm -rf $(OBJ_DIR) $(EXEC)
+	rm -rf $(OBJ_DIR) $(BIN_DIR)
