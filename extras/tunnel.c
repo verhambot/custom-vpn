@@ -110,7 +110,6 @@ int read_n(int fd, char *buf, int n)
 
     while (remaining_bytes > 0)
     {
-
         if ((nread = cread(fd, buf, n)) == 0)
         {
             return EXIT_SUCCESS;
